@@ -1,7 +1,7 @@
 # worklab
 a website for all your productivity needs
 
-Landing page with current projects
+Landing page with current projects and progress chart
 ![1](https://github.com/Mbar1s/worklab/assets/108489416/3d31593f-a8f1-454a-854e-9de2a594ed59)
 
 Adding new project
