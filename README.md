@@ -1,5 +1,6 @@
 # worklab
 a website for all your productivity needs, integrated progress tracker, charts, calendar and pomodoro timer.
+Techoloniges used: HTML, CSS, Javascript, React, Node.JS, express, mongoDb, mongoose, tailwind css. 
 
 Landing page with current projects and progress chart
 ![1](https://github.com/Mbar1s/worklab/assets/108489416/3d31593f-a8f1-454a-854e-9de2a594ed59)
