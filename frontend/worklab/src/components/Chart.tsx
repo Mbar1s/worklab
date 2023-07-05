@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import {
   ResponsiveContainer,
   AreaChart,
   Area,
   CartesianGrid,
-  Line,
-  LineChart,
   XAxis,
   YAxis,
   Tooltip,
 } from "recharts";
-import { format, parseISO, subDays } from "date-fns";
+import { parseISO, subDays } from "date-fns";
 interface Progress {
   date: string;
   completed: boolean;
