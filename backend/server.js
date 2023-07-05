@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors");
+const cors = require("cors")
 const mongoose = require("mongoose");
 const projectRoutes = require("./routes/projects");
 const userRoutes = require("./routes/user");
@@ -9,14 +9,13 @@ const userRoutes = require("./routes/user");
 //express app
 const app = express();
 
+
 //middleware
-app.use(
-  cors({
-    origin: ["https://worklab-frontend.vercel.app"],
-    methods: ["POST", "GET", "DELETE", "PUT", "PATCH"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "https://worklab-frontend.vercel.app",
+  methods: "GET, POST, PUT, DELETE",
+  allowedHeaders: "Content-Type, Authorization"
+}));
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -26,11 +25,6 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/projects/", projectRoutes);
 app.use("/api/user/", userRoutes);
-
-// Add CORS headers for preflight OPTIONS request
-app.options("/api/user/login", cors());
-// Add CORS headers for preflight OPTIONS request
-app.options("/api/user/signup", cors());
 
 //connect to db
 mongoose
