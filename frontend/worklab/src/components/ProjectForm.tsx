@@ -16,7 +16,7 @@ export default function ProjectForm() {
     }
     const project = { title, description };
 
-    const response = await fetch("work-lab-backend.vercel.app/api/projects", {
+    const response = await fetch("https://work-lab-backend.vercel.app/api/projects", {
       method: "POST",
       body: JSON.stringify(project),
       headers: {

@@ -92,7 +92,7 @@ const Calendar = ({
         const handleSubmit = async () => {
           try {
             await axios.put(
-              `http://localhost:4000/api/projects/${id}/progress`,
+              `https://work-lab-backend.vercel.app/api/projects/${id}/progress`,
               {
                 date: new Date(currentYear, currentMonth, currentDay),
                 completed: true,
@@ -110,7 +110,7 @@ const Calendar = ({
           const progressId = progress[progress.length - 1]._id;
           try {
             await axios.patch(
-              `work-lab-backend.vercel.app/api/projects/${id}/progress/${progressId}`,
+              `https://work-lab-backend.vercel.app/api/projects/${id}/progress/${progressId}`,
               {
                 timeWorked:
                   parseInt(progress[progress.length - 1]?.timeWorked) + 45,
@@ -131,7 +131,7 @@ const Calendar = ({
     const fetchProjects = async () => {
       try {
         await axios
-          .get(`http://localhost:4000/api/projects/${id}/progress`)
+          .get(`https://work-lab-backend.vercel.app/api/projects/${id}/progress`)
           .then(function (response) {
             setProgress(response.data);
           });

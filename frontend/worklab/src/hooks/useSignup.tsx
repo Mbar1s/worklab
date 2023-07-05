@@ -10,7 +10,7 @@ export default function useSignup() {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("work-lab-backend.vercel.app/api/user/signup", {
+    const response = await fetch("https://work-lab-backend.vercel.app/api/user/signup", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ email, password }),
