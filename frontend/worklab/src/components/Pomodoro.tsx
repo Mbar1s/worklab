@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Calendar from "./Calendar";
-import Chart from "./Chart";
 import {
   faPlay,
   faHourglassStart,

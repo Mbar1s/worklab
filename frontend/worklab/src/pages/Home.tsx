@@ -6,11 +6,19 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import ProjectDetails from "../components/ProjectDetails";
 import ProjectForm from "../components/ProjectForm";
 
+interface Progress {
+  date: string;
+  completed: boolean;
+  _id: string;
+  timeWorked: string;
+}
+
 interface Projects {
   _id: string;
   title: string;
   days: number;
   description: string;
+  progress: Progress[];
 }
 
 export default function Home() {

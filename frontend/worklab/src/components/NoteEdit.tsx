@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -19,7 +19,6 @@ export default function NoteEdit({
   const { id } = useParams();
   const [title, setTitle] = useState(noteTitle);
   const [description, setDescription] = useState(noteDescription);
-  const [error, setError] = useState("");
   const [fill, setFill] = useState(false);
 
   console.log(title, fill);

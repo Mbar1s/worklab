@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -7,13 +7,11 @@ interface NoteFormProps {
   handlePage: React.MouseEventHandler<HTMLButtonElement>;
 }
 export default function NoteForm({
-  page,
   handlePage,
 }: NoteFormProps): JSX.Element {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [error, setError] = useState("");
   const [fill, setFill] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

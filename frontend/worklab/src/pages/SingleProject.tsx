@@ -51,6 +51,7 @@ export default function SingleProject() {
     const json = await response.json();
     if (!response.ok) {
       setError(json.error);
+      console.log(error)
       setFill(true);
     }
     if (response.ok) {
@@ -149,7 +150,7 @@ export default function SingleProject() {
           </div>
 
           <div className=" col-span-4 ">
-            <Pomodoro id={id} />
+            <Pomodoro />
           </div>
         </div>
       ) : (

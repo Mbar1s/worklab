@@ -29,14 +29,14 @@ const Calendar = ({
     "Saturday",
   ];
   const currentDate = new Date();
+  const currentDay = currentDate.getDate();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
-  const [currentDay, setCurrentDay] = useState(currentDate.getDate());
+
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [progress, setProgress] = useState<Progress[]>([]);
   const [displayTime, setDisplayTime] = useState(false);
-  const [time, setTime] = useState(0);
 
   // Get the number of days in the selected month
   const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
@@ -112,7 +112,8 @@ const Calendar = ({
             await axios.patch(
               `work-lab-backend.vercel.app/api/projects/${id}/progress/${progressId}`,
               {
-                timeWorked: parseInt(progress[progress.length - 1]?.timeWorked) + 45,
+                timeWorked:
+                  parseInt(progress[progress.length - 1]?.timeWorked) + 45,
               }
             );
             console.log("progress updated");
@@ -124,7 +125,7 @@ const Calendar = ({
       }
     }
   }, [isWorking]);
-  
+
   //Recieve progress data
   useEffect(() => {
     const fetchProjects = async () => {
@@ -240,9 +241,7 @@ const Calendar = ({
           </div>
         ))}
       </div>
-      <Chart
-        progress={progress}
-      />
+      <Chart progress={progress} />
     </div>
   );
 };

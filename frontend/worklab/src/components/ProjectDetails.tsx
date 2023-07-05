@@ -1,7 +1,6 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Chart from "./Chart";
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -40,6 +39,7 @@ export default function ProjectDetails({
       }
     );
     const json = await response.json();
+    console.log(json)
   };
 
   console.log(project);
