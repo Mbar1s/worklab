@@ -11,7 +11,11 @@ const app = express();
 
 //middleware
 app.use(
-  cors({ origin: ["https://worklab-frontend.vercel.app"], methods:["POST", "GET","DELETE", "PUT", "PATCH"], credentials: true })
+  cors({
+    origin: ["https://worklab-frontend.vercel.app"],
+    methods: ["POST", "GET", "DELETE", "PUT", "PATCH"],
+    credentials: true,
+  })
 );
 app.use(express.json());
 app.use((req, res, next) => {
@@ -22,6 +26,11 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/projects/", projectRoutes);
 app.use("/api/user/", userRoutes);
+
+// Add CORS headers for preflight OPTIONS request
+app.options("/api/user/login", cors());
+// Add CORS headers for preflight OPTIONS request
+app.options("/api/user/signup", cors());
 
 //connect to db
 mongoose
