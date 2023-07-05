@@ -25,6 +25,10 @@ const projectSchema = new Schema(
       type: Number,
       default: 0,
     },
+    user_id: {
+      type: String,
+      required: true,
+    },
     notes: [
       {
         title: {
@@ -47,10 +51,10 @@ const projectSchema = new Schema(
           type: Boolean,
           default: false,
         },
-        timeWorked:{
+        timeWorked: {
           type: String,
           default: "0",
-        }
+        },
       },
     ],
   },

@@ -27,7 +27,7 @@ interface NotesProps {
 export default function Notes({ details }: NotesProps): JSX.Element {
   const [page, setPage] = useState(true);
   const [edit, setEdit] = useState(true);
-  const [noteDetails, setNoteDetails] = useState<Notes>(details);
+  const [noteDetails, setNoteDetails] = useState<Notes>({ notes: [details] });
   const [singleNote, setSingleNote] = useState<Details>({
     title: "",
     _id: "",

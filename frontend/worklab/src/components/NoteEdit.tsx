@@ -7,6 +7,8 @@ interface NoteEditProps {
   noteTitle: string;
   noteDescription: string;
   noteId: string;
+  page: boolean;
+  handlePage: () => void;
 }
 export default function NoteEdit({
   noteTitle,

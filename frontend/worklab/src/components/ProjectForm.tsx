@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function ProjectForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [fill, setFill] = useState(false);
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) {
+      setError("you must be logged in");
+      return;
+    }
     const project = { title, description };
 
     const response = await fetch("http://localhost:4000/api/projects", {
@@ -15,6 +21,7 @@ export default function ProjectForm() {
       body: JSON.stringify(project),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();
@@ -75,6 +82,7 @@ export default function ProjectForm() {
         ) : (
           ""
         )}
+        {error && <h1>{error}</h1>}
       </form>
     </div>
   );

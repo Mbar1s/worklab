@@ -2,8 +2,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Chart from "./Chart";
 import React, { useState } from "react";
-faTrash;
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 interface Progress {
   date: string;
   completed: boolean;
@@ -24,11 +25,18 @@ interface ProjectDetailsProps {
 export default function ProjectDetails({
   project,
 }: ProjectDetailsProps): JSX.Element {
+  const { user } = useAuthContext();
   const handleDelete = async () => {
+    if (!user) {
+      return;
+    }
     const response = await fetch(
       "http://localhost:4000/api/projects/" + project._id,
       {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
       }
     );
     const json = await response.json();

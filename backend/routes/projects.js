@@ -14,8 +14,12 @@ const {
   createProgress,
   updateProgress,
 } = require("../controllers/projectController");
+const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
+
+//require auth for all routes
+router.use(requireAuth);
 
 //GET ALL PROJECTS
 router.get("/", getProjects);

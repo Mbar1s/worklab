@@ -71,7 +71,7 @@ export default function SingleProject() {
   return (
     <div>
       {details ? (
-        <div className="grid grid-cols-12 h-screen w-full">
+        <div className="grid grid-cols-12 h-full bg-slate-200 w-full">
           <div className=" col-span-8 border border-r-2 border-emerald-600 rounded-lg">
             {!edit ? (
               <div>

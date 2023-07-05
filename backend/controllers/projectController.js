@@ -2,7 +2,8 @@ const Project = require("../models/projectModel");
 const mongoose = require("mongoose");
 //get all projects
 const getProjects = async (req, res) => {
-  const projects = await Project.find({}).sort({ createdAt: -1 });
+  const user_id = req.user._id;
+  const projects = await Project.find({ user_id }).sort({ createdAt: -1 });
   res.status(200).json(projects);
 };
 
@@ -25,6 +26,7 @@ const createProject = async (req, res) => {
 
   //add doc to db
   try {
+    const user_id = req.user._id;
     const project = await Project.create({
       title,
       description,
@@ -32,6 +34,7 @@ const createProject = async (req, res) => {
       totalWorkTime,
       totalBreakTime,
       notes,
+      user_id,
     });
     res.status(200).json(project);
   } catch (error) {
