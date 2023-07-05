@@ -35,7 +35,7 @@ export default function NoteEdit({
       setFill(false);
       try {
         await axios.patch(
-          `http://localhost:4000/api/projects/${id}/notes/${noteId}`,
+          `work-lab-backend.vercel.app/api/projects/${id}/notes/${noteId}`,
           {
             title,
             description,

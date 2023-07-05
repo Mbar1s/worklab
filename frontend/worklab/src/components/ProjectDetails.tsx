@@ -31,7 +31,7 @@ export default function ProjectDetails({
       return;
     }
     const response = await fetch(
-      "http://localhost:4000/api/projects/" + project._id,
+      "work-lab-backend.vercel.app/api/projects/" + project._id,
       {
         method: "DELETE",
         headers: {

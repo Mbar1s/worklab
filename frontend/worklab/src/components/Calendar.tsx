@@ -110,7 +110,7 @@ const Calendar = ({
           const progressId = progress[progress.length - 1]._id;
           try {
             await axios.patch(
-              `http://localhost:4000/api/projects/${id}/progress/${progressId}`,
+              `work-lab-backend.vercel.app/api/projects/${id}/progress/${progressId}`,
               {
                 timeWorked: parseInt(progress[progress.length - 1]?.timeWorked) + 45,
               }

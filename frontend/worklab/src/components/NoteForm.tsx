@@ -20,7 +20,7 @@ export default function NoteForm({
     e.preventDefault();
     if (title && description) {
       try {
-        await axios.put(`http://localhost:4000/api/projects/${id}/notes`, {
+        await axios.put(`work-lab-backend.vercel.app/api/projects/${id}/notes`, {
           title,
           description,
         });

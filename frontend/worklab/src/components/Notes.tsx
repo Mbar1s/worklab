@@ -46,7 +46,7 @@ export default function Notes({ details }: NotesProps): JSX.Element {
   const handleDelete = async (noteId: string) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/projects/${details._id}/notes/${noteId}`
+        `work-lab-backend.vercel.app/api/projects/${details._id}/notes/${noteId}`
       );
       console.log(response);
       setNoteDetails(response.data);
@@ -59,7 +59,7 @@ export default function Notes({ details }: NotesProps): JSX.Element {
   const handleEdit = async (noteId: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/projects/${details._id}/notes/${noteId}`
+        `work-lab-backend.vercel.app/api/projects/${details._id}/notes/${noteId}`
       );
       console.log(response);
       setSingleNote(response.data);
