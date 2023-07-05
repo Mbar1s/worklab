@@ -11,7 +11,7 @@ const app = express();
 
 //middleware
 app.use(
-  cors({ origin: ["https://worklab-frontend.vercel.app/"], methods:["POST", "GET","DELETE", "PUT", "PATCH"], credentials: true })
+  cors({ origin: ["https://worklab-frontend.vercel.app"], methods:["POST", "GET","DELETE", "PUT", "PATCH"], credentials: true })
 );
 app.use(express.json());
 app.use((req, res, next) => {
