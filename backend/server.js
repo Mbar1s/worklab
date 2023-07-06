@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors")
+const cors = require("cors");
 const mongoose = require("mongoose");
 const projectRoutes = require("./routes/projects");
 const userRoutes = require("./routes/user");
@@ -9,13 +9,8 @@ const userRoutes = require("./routes/user");
 //express app
 const app = express();
 
-
 //middleware
-app.use(cors({
-  origin: "https://worklab-frontend.vercel.app",
-  methods: "GET, POST, PUT, DELETE",
-  allowedHeaders: "Content-Type, Authorization"
-}));
+app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -27,14 +22,18 @@ app.use("/api/projects/", projectRoutes);
 app.use("/api/user/", userRoutes);
 
 //connect to db
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    //listen for requests
-    app.listen(process.env.PORT, () => {
-      console.log("connected to db and listening on port");
+if (process.env.PORT) {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+      //listen for requests
+      app.listen(process.env.PORT, () => {
+        console.log("connected to db and listening on port");
+      });
+    })
+    .catch((error) => {
+      console.log(error);
     });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+}
+
+module.exports = app;
