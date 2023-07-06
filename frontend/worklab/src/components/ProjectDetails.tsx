@@ -30,7 +30,7 @@ export default function ProjectDetails({
       return;
     }
     const response = await fetch(
-      "https://work-lab-backend.vercel.app/api/projects/" + project._id,
+      `${import.meta.env.VITE_API_URL}/projects/` + project._id,
       {
         method: "DELETE",
         headers: {
@@ -39,7 +39,7 @@ export default function ProjectDetails({
       }
     );
     const json = await response.json();
-    console.log(json)
+    console.log(json);
   };
 
   console.log(project);

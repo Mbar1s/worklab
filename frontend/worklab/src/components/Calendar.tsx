@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { faRightLong, faLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Chart from "./Chart";
+
+
 interface Progress {
   date: string;
   completed: boolean;
@@ -92,7 +94,7 @@ const Calendar = ({
         const handleSubmit = async () => {
           try {
             await axios.put(
-              `https://work-lab-backend.vercel.app/api/projects/${id}/progress`,
+              `${import.meta.env.VITE_API_URL}/projects/${id}/progress`,
               {
                 date: new Date(currentYear, currentMonth, currentDay),
                 completed: true,
@@ -110,7 +112,7 @@ const Calendar = ({
           const progressId = progress[progress.length - 1]._id;
           try {
             await axios.patch(
-              `https://work-lab-backend.vercel.app/api/projects/${id}/progress/${progressId}`,
+              `${import.meta.env.VITE_API_URL}/projects/${id}/progress/${progressId}`,
               {
                 timeWorked:
                   parseInt(progress[progress.length - 1]?.timeWorked) + 45,
@@ -131,7 +133,7 @@ const Calendar = ({
     const fetchProjects = async () => {
       try {
         await axios
-          .get(`https://work-lab-backend.vercel.app/api/projects/${id}/progress`)
+          .get(`${import.meta.env.VITE_API_URL}/projects/${id}/progress`)
           .then(function (response) {
             setProgress(response.data);
           });

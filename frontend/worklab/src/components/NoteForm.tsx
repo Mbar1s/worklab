@@ -18,7 +18,7 @@ export default function NoteForm({
     e.preventDefault();
     if (title && description) {
       try {
-        await axios.put(`https://work-lab-backend.vercel.app/api/projects/${id}/notes`, {
+        await axios.put(`${import.meta.env.VITE_API_URL}/projects/${id}/notes`, {
           title,
           description,
         });

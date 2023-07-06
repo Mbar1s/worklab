@@ -60,11 +60,14 @@ const PomodoroTimer: React.FC = () => {
 
   const updateTotal = async () => {
     try {
-      await axios.patch(`https://work-lab-backend.vercel.app/api/projects/${id}`, {
-        totalWorkTime,
-        totalBreakTime,
-        days,
-      });
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}/projects/${id}`,
+        {
+          totalWorkTime,
+          totalBreakTime,
+          days,
+        }
+      );
       console.log("updated");
     } catch (error) {
       console.error("Error updating total times:", error);
@@ -110,7 +113,7 @@ const PomodoroTimer: React.FC = () => {
   useEffect(() => {
     // Fetch initial total work time and total break time from backend
     axios
-      .get("https://work-lab-backend.vercel.app/api/projects/" + id)
+      .get(`${import.meta.env.VITE_API_URL}/projects/` + id)
       .then((response) => {
         console.log(response);
 
