@@ -26,7 +26,7 @@ const PomodoroTimer: React.FC = () => {
   const [totalBreakTime, setTotalBreakTime] = useState(0);
 
   useEffect(() => {
-    let interval: number;
+    let interval: NodeJS.Timeout;
 
     if (isRunning) {
       interval = setInterval(() => {
@@ -60,14 +60,11 @@ const PomodoroTimer: React.FC = () => {
 
   const updateTotal = async () => {
     try {
-      await axios.patch(
-        `${import.meta.env.VITE_API_URL}/projects/${id}`,
-        {
-          totalWorkTime,
-          totalBreakTime,
-          days,
-        }
-      );
+      await axios.patch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
+        totalWorkTime,
+        totalBreakTime,
+        days,
+      });
       console.log("updated");
     } catch (error) {
       console.error("Error updating total times:", error);
