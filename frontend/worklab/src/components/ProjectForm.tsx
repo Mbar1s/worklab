@@ -7,6 +7,7 @@ export default function ProjectForm() {
   const [error, setError] = useState<string | null>(null);
   const [fill, setFill] = useState(false);
   const { user } = useAuthContext();
+  console.log(error)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
