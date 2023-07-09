@@ -7,6 +7,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const { login, error, isLoading } = useLogin();
 
+  console.log(process.env.VITE_API_URL)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await login(email, password);
