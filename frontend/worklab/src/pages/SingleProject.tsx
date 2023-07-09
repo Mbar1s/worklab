@@ -24,7 +24,7 @@ export default function SingleProject() {
   //GET PROJECT DETAILS
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await fetch("http://localhost:4000/api/projects/" + id, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/`+ id, {
         method: "GET",
       });
       const json = await response.json();
@@ -41,7 +41,7 @@ export default function SingleProject() {
     e.preventDefault();
     const project = { title, description, days };
 
-    const response = await fetch("http://localhost:4000/api/projects/" + id, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/` + id, {
       method: "PATCH",
       body: JSON.stringify(project),
       headers: {

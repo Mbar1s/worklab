@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await fetch("http://localhost:4000/api/projects", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
