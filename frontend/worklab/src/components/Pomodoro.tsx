@@ -13,6 +13,7 @@ import {
   faHourglassHalf,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const PomodoroTimer: React.FC = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const PomodoroTimer: React.FC = () => {
   const [sessionBreakTime, setSessionBreakTime] = useState(0);
   const [totalWorkTime, setTotalWorkTime] = useState(0);
   const [totalBreakTime, setTotalBreakTime] = useState(0);
-
+  const { user } = useAuthContext();
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -60,11 +61,19 @@ const PomodoroTimer: React.FC = () => {
 
   const updateTotal = async () => {
     try {
-      await axios.patch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
-        totalWorkTime,
-        totalBreakTime,
-        days,
-      });
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}/projects/${id}`,
+        {
+          totalWorkTime,
+          totalBreakTime,
+          days,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
       console.log("updated");
     } catch (error) {
       console.error("Error updating total times:", error);
@@ -110,7 +119,11 @@ const PomodoroTimer: React.FC = () => {
   useEffect(() => {
     // Fetch initial total work time and total break time from backend
     axios
-      .get(`${import.meta.env.VITE_API_URL}/projects/` + id)
+      .get(`${import.meta.env.VITE_API_URL}/projects/` + id, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
       .then((response) => {
         console.log(response);
 
@@ -170,19 +183,19 @@ const PomodoroTimer: React.FC = () => {
       </div>
       <div className="grid grid-cols-3 gap-1">
         <button
-          className=" font-bold border-2 border-emerald-500 p-2 px-20 rounded-lg hover:bg-emerald-500  hover:text-emerald-900 duration-300"
+          className=" font-bold border-2 border-emerald-500 p-2 lg:px-10  rounded-lg hover:bg-emerald-500  hover:text-emerald-900 duration-300"
           onClick={startTimer}
         >
           Start <FontAwesomeIcon icon={faPlay} />
         </button>
         <button
-          className=" font-bold border-2 border-rose-500 p-2 px-20 rounded-lg hover:bg-rose-500  hover:text-rose-900 duration-300"
+          className=" font-bold border-2 border-rose-500  p-2 lg:px-10   rounded-lg hover:bg-rose-500  hover:text-rose-900 duration-300"
           onClick={stopTimer}
         >
           Stop <FontAwesomeIcon icon={faStop} />
         </button>
         <button
-          className=" font-bold border-2 border-pink-500 p-2 px-20 rounded-lg hover:bg-pink-500  hover:text-pink-900 duration-300"
+          className=" font-bold border-2 border-pink-500  p-2 lg:px-10   rounded-lg hover:bg-pink-500  hover:text-pink-900 duration-300"
           onClick={resetTimer}
         >
           Reset <FontAwesomeIcon icon={faClockRotateLeft} />

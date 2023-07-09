@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { faRightLong, faLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Chart from "./Chart";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 interface Progress {
@@ -39,6 +40,7 @@ const Calendar = ({
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [progress, setProgress] = useState<Progress[]>([]);
   const [displayTime, setDisplayTime] = useState(false);
+  const { user } = useAuthContext();
 
   // Get the number of days in the selected month
   const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
@@ -99,6 +101,10 @@ const Calendar = ({
                 date: new Date(currentYear, currentMonth, currentDay),
                 completed: true,
                 timeWorked: sessionWorkTime,
+              },{
+                headers: {
+                  Authorization: `Bearer ${user?.token}`,
+                },
               }
             );
             console.log("progress added successfully");
@@ -112,10 +118,17 @@ const Calendar = ({
           const progressId = progress[progress.length - 1]._id;
           try {
             await axios.patch(
-              `${import.meta.env.VITE_API_URL}/projects/${id}/progress/${progressId}`,
+              `${
+                import.meta.env.VITE_API_URL
+              }/projects/${id}/progress/${progressId}`,
               {
                 timeWorked:
                   parseInt(progress[progress.length - 1]?.timeWorked) + 45,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${user?.token}`,
+                },
               }
             );
             console.log("progress updated");
@@ -133,7 +146,11 @@ const Calendar = ({
     const fetchProjects = async () => {
       try {
         await axios
-          .get(`${import.meta.env.VITE_API_URL}/projects/${id}/progress`)
+          .get(`${import.meta.env.VITE_API_URL}/projects/${id}/progress`, {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          })
           .then(function (response) {
             setProgress(response.data);
           });
@@ -160,15 +177,15 @@ const Calendar = ({
     setDisplayTime((prevDisplayTime) => !prevDisplayTime);
   };
   return (
-    <div className="">
-      <div className="flex justify-between mt-2 mb-1">
+    <div className="w-96 sm:w-full">
+      <div className="flex mt-2 mb-1">
         <button
-          className="border w-full p-3 text-center border-rose-600 hover:bg-rose-600 duration-300"
+          className="border w-full text-center border-rose-600 hover:bg-rose-600 duration-300"
           onClick={handlePrevMonth}
         >
           <FontAwesomeIcon icon={faLeftLong} /> Previous Month
         </button>
-        <div className="flex flex-col text-center border border-cyan-600 hover:bg-cyan-600 duration-300 w-full p-3 ">
+        <div className="flex flex-col text-center border border-cyan-600 hover:bg-cyan-600 duration-300 w-full ">
           <span className="font-semibold">
             {new Date(selectedYear, selectedMonth).toLocaleString("default", {
               month: "long",
@@ -186,7 +203,7 @@ const Calendar = ({
           </select>
         </div>
         <button
-          className="border w-full p-3 text-center border-emerald-600 hover:bg-emerald-600 duration-300"
+          className="border w-full text-center border-emerald-600 hover:bg-emerald-600 duration-300"
           onClick={handleNextMonth}
         >
           Next Month <FontAwesomeIcon icon={faRightLong} />

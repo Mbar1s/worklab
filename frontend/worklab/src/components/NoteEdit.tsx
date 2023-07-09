@@ -1,6 +1,7 @@
-import { useState} from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 interface NoteEditProps {
   handleEdit: React.MouseEventHandler<HTMLButtonElement>;
@@ -20,8 +21,7 @@ export default function NoteEdit({
   const [title, setTitle] = useState(noteTitle);
   const [description, setDescription] = useState(noteDescription);
   const [fill, setFill] = useState(false);
-
-  console.log(title, fill);
+  const { user } = useAuthContext();
 
   //EDIT
   const handleSubmit = async (
@@ -38,6 +38,11 @@ export default function NoteEdit({
           {
             title,
             description,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
           }
         );
         console.log("wow");

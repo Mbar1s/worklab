@@ -50,11 +50,10 @@ export default function Home() {
 
   return (
     <div className="h-full bg-slate-200">
-      <div className="flex gap-10 justify-center text-3xl p-2 text-emerald-600">
-        {changePage ? <h1 className="p-2 font-bold ">Your Projects</h1> : ""}
+      <div className="absolute sm:top-1 sm:left-40 left-48 sm:text-3xl p-2 text-emerald-600">
         <button
           onClick={handlePage}
-          className=" font-bold border-2 border-emerald-500 p-2 rounded-lg hover:bg-emerald-500  hover:text-emerald-900 duration-300"
+          className=" font-bold border border-emerald-500 p-2 rounded-lg hover:bg-emerald-500  hover:text-emerald-900 duration-300"
         >
           {changePage ? (
             <div>

@@ -8,16 +8,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NoteForm from "./NoteForm";
 import NoteEdit from "./NoteEdit";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
+
+interface Notes {
+  title: string;
+  description: string;
+  _id: string;
+}
 
 interface Details {
   _id: string;
   title: string;
   description: string;
   days: number;
-}
-
-interface Notes {
-  notes: Details[];
+  notes: Notes[];
 }
 
 interface NotesProps {
@@ -27,16 +31,17 @@ interface NotesProps {
 export default function Notes({ details }: NotesProps): JSX.Element {
   const [page, setPage] = useState(true);
   const [edit, setEdit] = useState(true);
-  const [noteDetails, setNoteDetails] = useState<Notes>({ notes: [details] });
+  const [noteDetails, setNoteDetails] = useState(details);
   const [singleNote, setSingleNote] = useState<Details>({
     title: "",
     _id: "",
     description: "",
     days: 0,
+    notes: [], // Initialize notes as an empty array
   });
-
+  const { user } = useAuthContext();
   const handlePage = () => {
-    if (edit) {
+    if (!edit) {
       setEdit((prevEdit) => !prevEdit);
     }
     setPage((prevPage) => !prevPage);
@@ -46,7 +51,14 @@ export default function Notes({ details }: NotesProps): JSX.Element {
   const handleDelete = async (noteId: string) => {
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/projects/${details._id}/notes/${noteId}`
+        `${import.meta.env.VITE_API_URL}/projects/${
+          details._id
+        }/notes/${noteId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
       );
       console.log(response);
       setNoteDetails(response.data);
@@ -59,7 +71,14 @@ export default function Notes({ details }: NotesProps): JSX.Element {
   const handleEdit = async (noteId: string) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/projects/${details._id}/notes/${noteId}`
+        `${import.meta.env.VITE_API_URL}/projects/${
+          details._id
+        }/notes/${noteId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
       );
       console.log(response);
       setSingleNote(response.data);

@@ -1,27 +1,35 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 interface NoteFormProps {
   page: boolean;
   handlePage: React.MouseEventHandler<HTMLButtonElement>;
 }
-export default function NoteForm({
-  handlePage,
-}: NoteFormProps): JSX.Element {
+export default function NoteForm({ handlePage }: NoteFormProps): JSX.Element {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fill, setFill] = useState(false);
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (title && description) {
       try {
-        await axios.put(`${import.meta.env.VITE_API_URL}/projects/${id}/notes`, {
-          title,
-          description,
-        });
+        await axios.put(
+          `${import.meta.env.VITE_API_URL}/projects/${id}/notes`,
+          {
+            title,
+            description,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
+        );
         console.log("wow");
         setTitle("");
         setDescription("");

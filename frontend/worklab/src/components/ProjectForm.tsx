@@ -37,9 +37,9 @@ export default function ProjectForm() {
     }
   };
   return (
-    <div className="flex mt-24 text-center items-center justify-center">
+    <div className=" flex w-full h-screen bg-slate-900 items-center justify-center">
       <form
-        className="flex flex-col gap-4 w-1/2  border-2 border-emerald-600 rounded-lg "
+        className="flex flex-col gap-4 w-10/12 p-10  border-2 border-emerald-600 rounded-lg "
         onSubmit={handleSubmit}
       >
         <h3 className="text-emerald-600 font-bold text-2xl text-center">
@@ -52,8 +52,8 @@ export default function ProjectForm() {
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
-          className={`focus:outline-none border text-center font-bold ${
-            fill ? (title ? "border-emerald-600" : "border-rose-600") : ""
+          className={`focus:outline-none border rounded-lg text-white text-2xl bg-slate-600 font-bold ${
+            fill ? (title ? "border-emerald-600" : "border-rose-600") : "border-slate-600 "
           } p-2`}
         />
 
@@ -63,26 +63,23 @@ export default function ProjectForm() {
         <textarea
           onChange={(e) => setDescription(e.target.value)}
           value={description}
-          className={`border  rounded-lg h-48 focus:outline-none ${
-            fill
-              ? description
-                ? "border-emerald-600"
-                : "border-rose-600 border-2"
-              : ""
+          className={`border  bg-slate-600 text-white text-lg  rounded-lg h-56 focus:outline-none ${
+            fill ? (description ? "border-emerald-600" : "border-rose-600") : "border-slate-600 "
           } `}
         ></textarea>
 
-        <button className=" font-bold border-2 self-center w-60 border-emerald-500 p-4 rounded-lg hover:bg-emerald-500  hover:text-emerald-900 duration-300">
+        <button
+          className={` text-white font-bold border-2 self-center w-60 border-emerald-500 p-4 rounded-lg hover:bg-emerald-500  hover:text-emerald-900 duration-300`}
+        >
           Add Project
         </button>
         {fill ? (
-          <h1 className="p-4  border-2 self-center bg-rose-300 border-rose-500 border-lg text-rose-500 text-2xl font-bold text-center">
+          <h1 className="p-4  border-2 self-center bg-rose-200 border-rose-400 border-lg text-rose-400 text-2xl font-bold text-center">
             Please fill in all the fields
           </h1>
         ) : (
           ""
         )}
-        {error && <h1>{error}</h1>}
       </form>
     </div>
   );

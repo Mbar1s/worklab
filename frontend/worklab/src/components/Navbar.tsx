@@ -10,7 +10,7 @@ export default function Navbar() {
     logout();
   };
   return (
-    <header className="flex p-5 items-center justify-between border-b-2  bg-slate-900 text-white">
+    <header className="flex flex-row p-5 items-center justify-between border-b-2  bg-slate-900 text-white">
       <Link to="/">
         <h1 className="text-3xl">Work Lab</h1>
       </Link>
