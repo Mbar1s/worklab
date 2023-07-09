@@ -32,9 +32,8 @@ mongoose
         console.log("connected to db and listening on port");
       });
     }
+    module.exports = app;
   })
   .catch((error) => {
     console.log(error);
   });
-
-module.exports = app;
