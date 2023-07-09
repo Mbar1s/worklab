@@ -22,18 +22,19 @@ app.use("/api/projects/", projectRoutes);
 app.use("/api/user/", userRoutes);
 
 //connect to db
-if (process.env.PORT) {
-  mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => {
-      //listen for requests
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    //listen for requests
+    if (process.env.PORT) {
       app.listen(process.env.PORT, () => {
         console.log("connected to db and listening on port");
       });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 module.exports = app;
